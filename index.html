@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gitflow Testing Project Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Gitflow Master Dashboard</h1>
+      <p>Modern, Scalable Branching Workflow for High-Performance Teams</p>
+    </header>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>Feature Branching</h3>
+        <p>Isolated updates for each feature being developed. Use <code>git flow feature start [name]</code> to begin.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Release Management</h3>
+        <p>Polished and ready for production. Use <code>git flow release start [version]</code> to prepare a release.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Hotfix Strategy</h3>
+        <p>Immediate fixes for the production environment. Use <code>git flow hotfix start [name]</code> for urgent repairs.</p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="https://github.com/nvie/gitflow" target="_blank" class="btn btn-primary">Documentation</a>
+      <a href="#" class="btn btn-outline">Project Repo</a>
+    </div>
+
+    <div class="git-status">
+      <p><span>$ git branch</span></p>
+      <p>  develop</p>
+      <p>  master</p>
+      <p><span>$ git log --oneline --graph --decorate --all</span></p>
+      <p>* (HEAD -> develop) Initial commit</p>
+      <p>* (master) Initial commit</p>
+    </div>
+
+    <div style="margin-top: 3rem; text-align: center;">
+      <h3>Tracking Team Members</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">To track when your team members publish to the remote, use these commands:</p>
+      <code>git fetch --all</code> &nbsp; | &nbsp; <code>git branch -a</code> &nbsp; | &nbsp; <code>git log --oneline --all --graph</code>
+    </div>
+  </div>
+</body>
+</html>
