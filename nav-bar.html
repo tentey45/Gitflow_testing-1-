@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DripCraft — Generated Component</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body > *:first-child { min-height: 100vh; }
+  </style>
+  <style>
+:root {
+  --dc-nav-bg: #09090b;
+  --dc-nav-text: #fafafa;
+  --dc-nav-muted: #a1a1aa;
+  --dc-nav-accent: #3b82f6;
+  --dc-nav-border: rgba(255, 255, 255, 0.1);
+  --dc-nav-height: 64px;
+  --dc-nav-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dc-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--dc-nav-height);
+  background-color: var(--dc-nav-bg);
+  border-bottom: 1px solid var(--dc-nav-border);
+  color: var(--dc-nav-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.dc-navbar-container {
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dc-navbar-brand {
+  flex-shrink: 0;
+}
+
+.dc-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--dc-nav-text);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.dc-navbar-logo-icon {
+  color: var(--dc-nav-accent);
+}
+
+.dc-navbar-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+}
+
+.dc-navbar-link {
+  text-decoration: none;
+  color: var(--dc-nav-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color var(--dc-nav-transition);
+}
+
+.dc-navbar-link:hover,
+.dc-navbar-link.active {
+  color: var(--dc-nav-text);
+}
+
+.dc-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dc-navbar-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--dc-nav-transition);
+}
+
+.dc-navbar-btn-ghost {
+  color: var(--dc-nav-text);
+}
+
+.dc-navbar-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dc-navbar-btn-primary {
+  background: var(--dc-nav-accent);
+  color: white;
+}
+
+.dc-navbar-btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.dc-navbar-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.dc-navbar-hamburger,
+.dc-navbar-hamburger::before,
+.dc-navbar-hamburger::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--dc-nav-text);
+  position: absolute;
+  transition: transform var(--dc-nav-transition), opacity var(--dc-nav-transition);
+}
+
+.dc-navbar-hamburger::before {
+  content: '';
+  top: -6px;
+}
+
+.dc-navbar-hamburger::after {
+  content: '';
+  bottom: -6px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .dc-navbar-toggle {
+    display: flex;
+  }
+
+  .dc-navbar-menu {
+    position: fixed;
+    top: var(--dc-nav-height);
+    left: 0;
+    width: 100%;
+    background: var(--dc-nav-bg);
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--dc-nav-border);
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--dc-nav-transition);
+    z-index: -1;
+  }
+
+  .dc-navbar-menu.is-active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .dc-navbar-toggle.is-active .dc-navbar-hamburger {
+    background: transparent;
+  }
+
+  .dc-navbar-toggle.is-active .dc-navbar-hamburger::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .dc-navbar-toggle.is-active .dc-navbar-hamburger::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .dc-navbar-btn-ghost {
+    display: none;
+  }
+}
+
+  </style>
+</head>
+<body>
+<nav class="dc-navbar" aria-label="Primary Navigation">
+  <div class="dc-navbar-container">
+    <!-- Brand Logo -->
+    <div class="dc-navbar-brand">
+      <a href="#" class="dc-navbar-logo">
+        <svg class="dc-navbar-logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        <span>DarkCore</span>
+      </a>
+    </div>
+
+    <!-- Desktop Menu -->
+    <ul class="dc-navbar-menu" id="dc-navbar-menu">
+      <li><a href="#" class="dc-navbar-link active">Product</a></li>
+      <li><a href="#" class="dc-navbar-link">Features</a></li>
+      <li><a href="#" class="dc-navbar-link">Marketplace</a></li>
+      <li><a href="#" class="dc-navbar-link">Company</a></li>
+    </ul>
+
+    <!-- Actions & Toggle -->
+    <div class="dc-navbar-actions">
+      <a href="#" class="dc-navbar-btn dc-navbar-btn-ghost">Log in</a>
+      <a href="#" class="dc-navbar-btn dc-navbar-btn-primary">Get Started</a>
+
+      <button class="dc-navbar-toggle" id="dc-navbar-toggle" aria-label="Open menu"
+        aria-expanded="false" aria-controls="dc-navbar-menu">
+        <span class="dc-navbar-hamburger"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<script>
+(function() {
+  // Scoped references to internal elements
+  const toggle = document.getElementById('dc-navbar-toggle');
+  const menu = document.getElementById('dc-navbar-menu');
+  const links = document.querySelectorAll('.dc-navbar-link');
+  if (!toggle || !menu) return;
+  /**
+   * Toggles the visibility of the mobile menu
+   */
+  const toggleMenu = () => {
+    const isOpen = menu.classList.toggle('is-active');
+    toggle.classList.toggle('is-active');
+    toggle.setAttribute('aria-expanded', isOpen);
+    // Prevent body scroll when menu is open
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  };
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+  // Close menu when a link is clicked
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      if (menu.classList.contains('is-active')) {
+        toggleMenu();
+      }
+    });
+  });
+  // Close menu when clicking outside the component
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+      if (menu.classList.contains('is-active')) {
+        toggleMenu();
+      }
+    }
+  });
+  // Reset state on window resize if crossing breakpoints
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && menu.classList.contains('is-active')) {
+      toggleMenu();
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
