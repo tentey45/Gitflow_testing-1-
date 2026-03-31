@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Modern Login | Nebula Access</title>
+  <!-- Google Fonts: clean, modern sans-serif -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0B1120 0%, #19233C 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* animated background grain / glow effect */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 30%, rgba(66, 153, 225, 0.08) 0%, rgba(0,0,0,0) 60%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.03"><path fill="none" d="M70 90 L130 90 M100 60 L100 120" stroke="white" stroke-width="1.5"/><circle cx="100" cy="90" r="35" stroke="white" stroke-width="1" fill="none"/></svg>');
+      background-repeat: repeat;
+      background-size: 40px;
+      pointer-events: none;
+    }
+
+    /* main card */
+    .glass-card {
+      background: rgba(18, 25, 45, 0.75);
+      backdrop-filter: blur(14px);
+      border-radius: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.4), 0 0 0 0.5px rgba(255, 255, 255, 0.05) inset;
+      width: 100%;
+      max-width: 440px;
+      padding: 2rem 2rem 2.2rem;
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+
+    .glass-card:hover {
+      box-shadow: 0 30px 55px -15px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* logo + brand */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo-icon {
+      background: linear-gradient(125deg, #3B82F6, #A855F7);
+      width: 44px;
+      height: 44px;
+      border-radius: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 10px 18px -6px rgba(59,130,246,0.4);
+    }
+
+    .logo-icon i {
+      color: white;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .brand h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #F9FAFB, #CBD5E1);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .welcome-text {
+      margin-bottom: 1.8rem;
+    }
+
+    .welcome-text h2 {
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: white;
+      letter-spacing: -0.3px;
+      margin-bottom: 0.4rem;
+    }
+
+    .welcome-text p {
+      color: #9CA3AF;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* form group */
+    .input-group {
+      margin-bottom: 1.4rem;
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6B7280;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+      pointer-events: none;
+    }
+
+    .input-group input {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.2rem;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      font-size: 0.95rem;
+      font-family: 'Inter', monospace;
+      color: #F1F5F9;
+      transition: all 0.2s ease;
+      outline: none;
+      font-weight: 500;
+    }
+
+    .input-group input:focus {
+      border-color: #3B82F6;
+      background: rgba(20, 30, 55, 0.9);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .input-group input:focus + i {
+      color: #60A5FA;
+    }
+
+    .input-group input::placeholder {
+      color: #5F6A84;
+      font-weight: 400;
+    }
+
+    /* extra row: remember + forgot */
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.5rem 0 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      color: #CBD5E1;
+    }
+
+    .checkbox input {
+      width: 16px;
+      height: 16px;
+      accent-color: #3B82F6;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .forgot-link {
+      color: #93C5FD;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover {
+      color: #60A5FA;
+      text-decoration: underline;
+    }
+
+    /* login button */
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(95deg, #3B82F6, #8B5CF6);
+      border: none;
+      border-radius: 2rem;
+      padding: 0.9rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 20px -8px rgba(59,130,246,0.5);
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .login-btn i {
+      font-size: 1rem;
+      transition: transform 0.2s;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(95deg, #2563EB, #7C3AED);
+      box-shadow: 0 12px 24px -10px rgba(59,130,246,0.6);
+    }
+
+    .login-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #5F6A84;
+      font-size: 0.8rem;
+      margin: 1rem 0 1.2rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .divider span {
+      margin: 0 0.8rem;
+      font-weight: 500;
+    }
+
+    /* social buttons */
+    .social-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .social-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 2rem;
+      padding: 0.65rem 1.1rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #E2E8F0;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(20, 30, 55, 0.5);
+    }
+
+    .social-btn i {
+      font-size: 1.2rem;
+    }
+
+    .social-btn:hover {
+      background: rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.4);
+      color: white;
+      transform: scale(0.98);
+    }
+
+    /* sign up link */
+    .signup-prompt {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #9CA3AF;
+      margin-top: 0.5rem;
+    }
+
+    .signup-prompt a {
+      color: #A78BFA;
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 0.3rem;
+      transition: color 0.2s;
+    }
+
+    .signup-prompt a:hover {
+      color: #C4B5FD;
+      text-decoration: underline;
+    }
+
+    /* demo toast message (modern) */
+    .toast-message {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: #1E293BCC;
+      backdrop-filter: blur(12px);
+      padding: 0.8rem 1.6rem;
+      border-radius: 3rem;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 12px 22px -12px black;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      z-index: 1000;
+      font-family: monospace;
+      letter-spacing: 0.2px;
+    }
+
+    .toast-message.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* responsive touches */
+    @media (max-width: 480px) {
+      .glass-card {
+        padding: 1.5rem;
+      }
+      .brand h1 {
+        font-size: 1.6rem;
+      }
+      .welcome-text h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glass-card">
+  <div class="brand">
+    <div class="logo-icon">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <h1>Gitflow Master Dashboard</h1>
+  </div>
+  
+  <div class="welcome-text">
+    <h2>Welcome back</h2>
+    <p>Sign in to continue to your account</p>
+  </div>
+
+  <form id="loginForm" action="#" method="POST">
+    <div class="input-group">
+      <i class="fas fa-envelope"></i>
+      <input type="email" id="email" name="email" placeholder="Email address" autocomplete="email" required>
+    </div>
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="password" name="password" placeholder="Password" autocomplete="current-password" required>
+    </div>
+
+    <div class="form-options">
+      <label class="checkbox">
+        <input type="checkbox" id="rememberCheck"> 
+        <span>Remember me</span>
+      </label>
+      <a href="#" class="forgot-link" id="forgotPasswordLink">Forgot password?</a>
+    </div>
+
+    <button type="submit" class="login-btn">
+      <i class="fas fa-arrow-right-to-bracket"></i> 
+      Log in
+    </button>
+  </form>
+
+  <div class="divider">
+    <span>or continue with</span>
+  </div>
+
+  <div class="social-buttons">
+    <button class="social-btn" id="googleBtn">
+      <i class="fab fa-google"></i> Google
+    </button>
+    <button class="social-btn" id="githubBtn">
+      <i class="fab fa-github"></i> GitHub
+    </button>
+  </div>
+
+  <div class="signup-prompt">
+    Don't have an account? <a href="#" id="signupLink">Create account</a>
+  </div>
+</div>
+
+<div id="toastMsg" class="toast-message">✨ Welcome back! (demo)</div>
+
+<script>
+  // Modern interactive demo with subtle toast messages & client-side validation
+  (function() {
+    const toast = document.getElementById('toastMsg');
+    
+    function showMessage(text, isError = false) {
+      toast.textContent = text;
+      toast.style.background = isError ? '#7F1A1ACC' : '#1E293BCC';
+      toast.style.borderLeft = isError ? '3px solid #F87171' : '3px solid #3B82F6';
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2700);
+    }
+
+    // Helper: simulate modern validation
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const loginForm = document.getElementById('loginForm');
+    const rememberCheck = document.getElementById('rememberCheck');
+
+    // Prefill demo credentials (for showcase, not stored in real)
+    // but we keep empty for clean look — optional prefilled email for demo ease? 
+    // not necessary but helpful for test: email: demo@nebula.com / pass: any
+    // I'll prefill a demo hint (user can see placeholder but not auto-filled to keep clean)
+    
+    // handle login submit
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      
+      // simple modern validation
+      if (!email) {
+        showMessage('Please enter your email address', true);
+        emailInput.focus();
+        return;
+      }
+      if (!email.includes('@') || !email.includes('.')) {
+        showMessage('Enter a valid email (e.g., name@domain.com)', true);
+        emailInput.focus();
+        return;
+      }
+      if (!password) {
+        showMessage('Password cannot be empty', true);
+        passwordInput.focus();
+        return;
+      }
+      if (password.length < 4) {
+        showMessage('Password must be at least 4 characters', true);
+        passwordInput.focus();
+        return;
+      }
+      
+      // mock success login - simulate API
+      const rememberStatus = rememberCheck.checked ? 'Remembered ✓' : 'Not remembered';
+      showMessage(`✅ Logged in as ${email} | ${rememberStatus}`, false);
+      
+      // optional: you could redirect or do something more fancy
+      console.log(`Login attempt with: ${email}, password length: ${password.length}, remember: ${rememberCheck.checked}`);
+      
+      // small extra: reset form? not needed, but keep fields
+      // we could also animate, but just show success
+    });
+    
+    // Forgot password demo
+    const forgotLink = document.getElementById('forgotPasswordLink');
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      showMessage('📧 Reset link sent to your email (demo)', false);
+    });
+    
+    // Social login demo
+    const googleBtn = document.getElementById('googleBtn');
+    const githubBtn = document.getElementById('githubBtn');
+    
+    googleBtn.addEventListener('click', () => {
+      showMessage('🔐 Google OAuth demo — redirect to authentication', false);
+    });
+    
+    githubBtn.addEventListener('click', () => {
+      showMessage('🐙 GitHub OAuth demo — redirect to GitHub', false);
+    });
+    
+    // Signup demo
+    const signupLink = document.getElementById('signupLink');
+    signupLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      showMessage('✨ Join Nebula — create new account (demo flow)', false);
+    });
+    
+    // optional: interactive border effect on input focus (CSS already)
+    // additional modern: prefill demo with "demo@nebula.com" for better UX?
+    // I'll set a helpful demo suggestion inside input but not intrusive.
+    // Provide a small helper note in console? no, but we add placeholder.
+    // already done: placeholder on email / password.
+    
+    // Demo helper to show modern dynamic cursor effect - just style
+    // also simulate "remember me" load from localStorage? extra polish
+    // optional: load remembered email if exists? not needed but tiny.
+    // because it's a modern short login, we can add localStorage demo
+    if (localStorage.getItem('rem_username') && localStorage.getItem('rem_flag') === 'true') {
+      const savedEmail = localStorage.getItem('rem_username');
+      if (savedEmail) {
+        emailInput.value = savedEmail;
+        rememberCheck.checked = true;
+        // we can show message: restored from last session
+        setTimeout(() => {
+          showMessage('🔄 Restored email from last session', false);
+        }, 300);
+      }
+    }
+    
+    // Save "Remember me" behavior on successful login (mock)
+    // we will intercept the submit and store if checkbox is checked
+    // But we already show message, but we also implement saving on valid submission
+    // Enhance: after successful login (mock), store if remember is checked
+    const originalSubmitHandler = loginForm.onsubmit;
+    // replace with advanced store method
+    loginForm.removeEventListener('submit', loginForm.onsubmit);
+    // reattach more complete handler
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      
+      if (!email || !email.includes('@') || !password || password.length < 4) {
+        if (!email) showMessage('Email required', true);
+        else if (!email.includes('@')) showMessage('Valid email required', true);
+        else if (!password) showMessage('Password required', true);
+        else if (password.length < 4) showMessage('Password too short', true);
+        return;
+      }
+      
+      // if remember me is checked: store email in localStorage
+      if (rememberCheck.checked) {
+        localStorage.setItem('rem_username', email);
+        localStorage.setItem('rem_flag', 'true');
+      } else {
+        localStorage.removeItem('rem_username');
+        localStorage.setItem('rem_flag', 'false');
+      }
+      
+      // success toast
+      showMessage(`✔️ Access granted. Redirecting to dashboard... (demo)`, false);
+      // optional: clear password field for security? no, just demonstration
+      // we could simulate a redirect timeout? but keep user on page
+      console.log('authenticated ✅');
+    });
+    
+    // add additional fallback to handle previous listener duplication? 
+    // but fine: we completely replaced by removing previous? we didn't remove previous inline? Actually addEventListener twice would cause both to run.
+    // to prevent double firing, we should remove old listener. But original assignment: loginForm.addEventListener('submit', ...)
+    // We need to store reference. I used an IIFE but the first listener added via initial addEventListener still exists.
+    // we must remove the default one that I added earlier? In code above there is 'loginForm.addEventListener('submit', (e) => {...})' and then later we add another.
+    // That would cause two messages. Let's fix: remove previous listener by storing reference.
+    // But easier: I'll replace the whole onsubmit approach.
+    // I already added a second listener, but first one would also trigger. Remove the previous one.
+    // I'll clone and replace? simplest: override the form's onsubmit property, but we have listeners.
+    // Let's get rid of duplicate: I will remove all existing submit listeners by replacing with a new one.
+    // quick solution: create newForm event replacement.
+    const newForm = loginForm;
+    // remove all submit listeners via replacement (clone node technique)
+    const parent = newForm.parentNode;
+    const cloneForm = newForm.cloneNode(true);
+    parent.replaceChild(cloneForm, newForm);
+    // now re-acquire elements
+    const finalForm = cloneForm;
+    const finalEmail = cloneForm.querySelector('#email');
+    const finalPassword = cloneForm.querySelector('#password');
+    const finalRemember = cloneForm.querySelector('#rememberCheck');
+    const finalForgot = document.getElementById('forgotPasswordLink'); // still exists outside form? yes
+    const finalGoogle = document.getElementById('googleBtn');
+    const finalGithub = document.getElementById('githubBtn');
+    const finalSignup = document.getElementById('signupLink');
+    
+    // reattach events to cloned elements
+    finalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const emailVal = finalEmail.value.trim();
+      const passVal = finalPassword.value.trim();
+      const rememberVal = finalRemember.checked;
+      
+      if (!emailVal) {
+        showMessage('Please enter email', true);
+        finalEmail.focus();
+        return;
+      }
+      if (!emailVal.includes('@') || !emailVal.includes('.')) {
+        showMessage('Enter a valid email address', true);
+        finalEmail.focus();
+        return;
+      }
+      if (!passVal) {
+        showMessage('Password required', true);
+        finalPassword.focus();
+        return;
+      }
+      if (passVal.length < 4) {
+        showMessage('Password must be at least 4 characters', true);
+        finalPassword.focus();
+        return;
+      }
+      
+      if (rememberVal) {
+        localStorage.setItem('rem_username', emailVal);
+        localStorage.setItem('rem_flag', 'true');
+      } else {
+        localStorage.removeItem('rem_username');
+        localStorage.setItem('rem_flag', 'false');
+      }
+      
+      showMessage(`🎉 Welcome ${emailVal.split('@')[0]}! Secure login demo.`, false);
+      // optional reset password field for privacy demo?
+      // Not resetting but UI remains.
+    });
+    
+    // Re-attach extra events for forgot/social/signup using global functions
+    const newForgot = document.getElementById('forgotPasswordLink');
+    if (newForgot) {
+      newForgot.replaceWith?.(newForgot.cloneNode(true));
+      const freshForgot = document.getElementById('forgotPasswordLink');
+      if (freshForgot) freshForgot.addEventListener('click', (e) => { e.preventDefault(); showMessage('📧 Password reset email sent (demo)', false); });
+    }
+    const googleClone = document.getElementById('googleBtn');
+    if (googleClone) {
+      googleClone.addEventListener('click', () => showMessage('🔐 Continue with Google (demo)', false));
+    }
+    const githubClone = document.getElementById('githubBtn');
+    if (githubClone) {
+      githubClone.addEventListener('click', () => showMessage('🐙 Continue with GitHub (demo)', false));
+    }
+    const signupClone = document.getElementById('signupLink');
+    if (signupClone) {
+      signupClone.addEventListener('click', (e) => { e.preventDefault(); showMessage('🌟 Create new account — stellar journey awaits', false); });
+    }
+    
+    // Restore remembered email if exists after replace
+    const savedMail = localStorage.getItem('rem_username');
+    const savedFlag = localStorage.getItem('rem_flag');
+    if (savedMail && savedFlag === 'true') {
+      if (finalEmail) finalEmail.value = savedMail;
+      if (finalRemember) finalRemember.checked = true;
+    }
+    
+    // small extra: add a modern effect that input labels float? not needed but smooth.
+    // adjust focus style dynamically using existing CSS.
+  })();
+</script>
+</body>
+</html>
