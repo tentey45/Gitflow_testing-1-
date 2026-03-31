@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Side Bar Feature</title>
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary-color: #11101d;
+            --accent-color: #ffffff;
+            --hover-color: #1d1b31;
+            --text-color: #ffffff;
+            --sidebar-width: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e4e9f7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar container */
+        .sidebar {
+            position: fixed;
+            left: -250px; /* Hidden by default on small screens */
+            top: 0;
+            height: 100%;
+            width: var(--sidebar-width);
+            background: var(--primary-color);
+            padding: 6px 14px;
+            transition: all 0.5s ease;
+            z-index: 99;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* Toggle 'active' class via JS */
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar .logo-details {
+            height: 60px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+
+        .sidebar .logo-details i {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        .sidebar .logo_name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .nav-list {
+            padding: 0;
+        }
+
+        .nav-list li {
+            position: relative;
+            margin: 12px 0;
+            list-style: none;
+        }
+
+        .nav-list li a {
+            display: flex;
+            height: 50px;
+            width: 100%;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            color: var(--text-color);
+        }
+
+        /* Hover effect */
+        .nav-list li a:hover {
+            background: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .nav-list li i {
+            height: 50px;
+            min-width: 50px;
+            border-radius: 12px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .links_name {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        /* Menu Button */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main content area */
+        .home-section {
+            padding: 100px 40px;
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="toggle-btn" id="menu-btn">
+        <i class='bx bx-menu'></i>
+    </button>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="logo-details">
+            <i class='bx bxl-codepen-alt'></i>
+            <span class="logo_name">DevProject</span>
+        </div>
+        <ul class="nav-list">
+            <li>
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Team</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Messages</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Analytics</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Settings</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="home-section">
+        <h1>Welcome to the Dashboard</h1>
+        <p>Click the menu icon in the top-left to toggle the sidebar.</p>
+    </main>
+
+    <script>
+        /* --- JAVASCRIPT LOGIC --- */
+        const sidebar = document.getElementById("sidebar");
+        const menuBtn = document.getElementById("menu-btn");
+
+        // Toggle sidebar open/closed
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+            
+            // Change icon from menu to 'X' when open
+            const icon = menuBtn.querySelector("i");
+            if (sidebar.classList.contains("active")) {
+                icon.classList.replace("bx-menu", "bx-x");
+            } else {
+                icon.classList.replace("bx-x", "bx-menu");
+            }
+        });
+    </script>
+</body>
+</html>
